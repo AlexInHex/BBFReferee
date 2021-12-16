@@ -1,6 +1,5 @@
 ﻿using BBFReff.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,27 +8,30 @@ using System.Threading.Tasks;
 
 namespace BBFReferee.Infrastructure.Data.Configuration
 {
-    internal class AdressTeamConfiguration : IEntityTypeConfiguration<AdressTeam>
+    internal class ReportConfiguration : IEntityTypeConfiguration<Report>
     {
-        public void Configure(EntityTypeBuilder<AdressTeam> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Report> builder)
         {
             builder
                 .HasKey(x => x.Id);
 
             builder
-                .Property(x => x.Sity)
+                .Property(x => x.GameId)
                 .IsRequired();
 
             builder
-                .Property(X => X.Adress)
-                .HasMaxLength(200)
+                .Property(x => x.UserId)
                 .IsRequired();
 
             builder
-                .Property(x => x.TeamId)
+                .Property(x => x.DateCreation)
                 .IsRequired();
+
+            builder
+                .Property(x => x.Describtion)
+                .HasMaxLength(300);
+
+       
         }
-
-        
     }
 }

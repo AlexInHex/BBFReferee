@@ -32,7 +32,7 @@ namespace BBFReferee.Infrastructure.Data.Configuration
                 .IsRequired();
 
             builder
-                .Property(t => t.RefereeTeam)
+                .Property(t => t.RefereeTeams)
                 .IsRequired();
 
             builder

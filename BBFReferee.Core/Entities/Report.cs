@@ -13,6 +13,8 @@ namespace BBFReff.Entities
         public DateTime DateCreation { get; set; }
         public int GameId { get; set; }
         public int UserId { get; set; }
+        public ICollection<RefereeTeam> RefereeTeams { get; set; }
+
 
     }
 }

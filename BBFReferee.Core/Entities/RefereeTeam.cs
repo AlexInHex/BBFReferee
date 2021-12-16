@@ -16,6 +16,7 @@ namespace BBFReff.Entities
         public User User { get; set; }
         public int Mark { get; set; }
         public int ReportId { get; set; }
+        public Report Report { get; set; }
         public int Id { get; set; }
 
 
