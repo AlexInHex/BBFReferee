@@ -37,6 +37,9 @@ namespace BBFReferee.Infrastructure.Data
         new SeasonConfiguration().Configure(modelBuilder.Entity<Season>());
         new SityConfiguration().Configure(modelBuilder.Entity<Sity>());
         new UserConfiguration().Configure(modelBuilder.Entity<User>());
+        new AdressTeamConfiguration().Configure(modelBuilder.Entity<AdressTeam>());
+        new ReportConfiguration().Configure(modelBuilder.Entity<Report>());
+        new TeamConfiguration().Configure(modelBuilder.Entity<Team>());
 
     }
 }
