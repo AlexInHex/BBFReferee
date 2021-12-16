@@ -13,10 +13,11 @@ namespace BBFReferee.Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<GameSeason> builder)
         {
-                builder
-                    .HasKey(x=> new {x.GameId, x.SeasonId});
+            builder
+                .HasKey(x => new { x.GameId, x.SeasonId });
+                    
 
-                builder
+            builder
                     .Property(x => x.GameInSeasonId)
                     .IsRequired();
 

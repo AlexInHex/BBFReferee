@@ -8,6 +8,7 @@ namespace BBFReff.Entities
 {
     public class GameSeason
     {
+
         public int GameId { get; set; }
         public int SeasonId { get; set; }
         public int GameInSeasonId { get; set; }
