@@ -15,9 +15,11 @@ namespace BBFReff.Entities
         public Team HomeTeam { get; set; }
         public int AwayTeamId { get; set; }
         public Team AwayTeam { get; set; }
-        public ICollection<RefereeTeam> RefereeTeams { get; set; }
+        public ICollection<Referee> Referees { get; set; }
+        public int RefereeId { get; set; }
         public string Describtion { get; set; }
         public ICollection<GameSeason> GameSeasons { get; set; }
+        public int GameSeasonId { get; set; } 
         
 
 

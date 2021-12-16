@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BBFReff.Entities
 {
-    public class RefereeTeam
+    public class Referee
     {
         public RoleOnGame RoleInGame { get; set; }
         public int GameId { get; set; }

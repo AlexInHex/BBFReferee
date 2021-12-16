@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using BBFReferee.Infrastructure.Data;
 using BBFReferee.Core.Interfeices;
 using BBFReferee.Infrastructure.Data.Repisitoies;
+using Microsoft.EntityFrameworkCore;
 
 namespace BBFReferee.Web
 {
@@ -27,7 +28,7 @@ namespace BBFReferee.Web
         {
             //DbContext
             services.AddDbContext<BBFRefereeDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("BBFReferee")));
+                options.UseSqlServer(Configuration.GetConnectionString("BBFRefereeMainBase")));
 
             //Repositories
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));

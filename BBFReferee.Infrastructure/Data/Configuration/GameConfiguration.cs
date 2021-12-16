@@ -24,20 +24,24 @@ namespace BBFReferee.Infrastructure.Data.Configuration
                 .IsRequired();
 
             builder
-                .Property(t => t.HomeTeam)
+                .Property(t => t.HomeTeamId)
                 .IsRequired();
 
             builder
-                .Property(t => t.AwayTeam)
+                .Property(t => t.AwayTeamId)
                 .IsRequired();
 
             builder
-                .Property(t => t.RefereeTeams)
+                .Property(t => t.RefereeId)
                 .IsRequired();
 
             builder
                 .Property(t => t.Describtion)
                 .HasMaxLength(300);
+
+            builder
+                .Property(t => t.GameSeasonId)
+                .IsRequired();
 
         }
     }

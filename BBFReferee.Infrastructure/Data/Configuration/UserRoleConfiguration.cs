@@ -9,27 +9,24 @@ using System.Threading.Tasks;
 
 namespace BBFReferee.Infrastructure.Data.Configuration
 {
-    internal class AdressTeamConfiguration : IEntityTypeConfiguration<AdressTeam>
+    internal class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
     {
-        public void Configure(EntityTypeBuilder<AdressTeam> builder)
+        public void Configure(EntityTypeBuilder<UserRole> builder)
         {
             builder
                 .HasKey(x => x.Id);
 
             builder
-                .Property(x => x.SityId)
+                .Property(x => x.RoleId)
                 .IsRequired();
 
             builder
-                .Property(X => X.Adress)
-                .HasMaxLength(200)
+                .Property(x => x.UserId)
                 .IsRequired();
 
             builder
-                .Property(x => x.TeamId)
+                .Property(x => x.MemberOn)
                 .IsRequired();
         }
-
-        
     }
 }

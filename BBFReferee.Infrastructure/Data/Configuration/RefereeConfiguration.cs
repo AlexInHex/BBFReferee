@@ -9,27 +9,28 @@ using System.Threading.Tasks;
 
 namespace BBFReferee.Infrastructure.Data.Configuration
 {
-    internal class AdressTeamConfiguration : IEntityTypeConfiguration<AdressTeam>
+    internal class RefereeConfiguration : IEntityTypeConfiguration<Referee>
     {
-        public void Configure(EntityTypeBuilder<AdressTeam> builder)
+        public void Configure(EntityTypeBuilder<Referee> builder)
         {
             builder
                 .HasKey(x => x.Id);
 
             builder
-                .Property(x => x.SityId)
+                .Property(x=> x.GameId)
                 .IsRequired();
 
             builder
-                .Property(X => X.Adress)
-                .HasMaxLength(200)
+                .Property(x => x.UserId)
                 .IsRequired();
 
             builder
-                .Property(x => x.TeamId)
+                .Property(x => x.Mark)
+                .HasMaxLength(3);
+
+            builder
+                .Property(x => x.ReportId)
                 .IsRequired();
         }
-
-        
     }
 }

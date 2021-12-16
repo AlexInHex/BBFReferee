@@ -20,26 +20,22 @@ namespace BBFReferee.Infrastructure.Data
         public DbSet<AdressTeam> Adresses { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<Report> Reports { get; set; }
-        public DbSet<RefereeTeam> RefereeTeams { get; set; }
+        public DbSet<Referee> RefereeTeams { get; set; }
 
-    }
+        public BBFRefereeDbContext(DbContextOptions<BBFRefereeDbContext> options) : base(options)
+        { }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer("Server=localhost;Database=BBFReferee;Trusted_Connection=True;");
-    }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            new GameConfiguration().Configure(modelBuilder.Entity<Game>());
+            new RoleConfiguration().Configure(modelBuilder.Entity<Role>());
+            new SeasonConfiguration().Configure(modelBuilder.Entity<Season>());
+            new SityConfiguration().Configure(modelBuilder.Entity<Sity>());
+            new UserConfiguration().Configure(modelBuilder.Entity<User>());
+            new AdressTeamConfiguration().Configure(modelBuilder.Entity<AdressTeam>());
+            new ReportConfiguration().Configure(modelBuilder.Entity<Report>());
+            new TeamConfiguration().Configure(modelBuilder.Entity<Team>());
 
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        new GameConfiguration().Configure(modelBuilder.Entity<Game>());
-        new RoleConfiguration().Configure(modelBuilder.Entity<Role>());
-        new SeasonConfiguration().Configure(modelBuilder.Entity<Season>());
-        new SityConfiguration().Configure(modelBuilder.Entity<Sity>());
-        new UserConfiguration().Configure(modelBuilder.Entity<User>());
-        new AdressTeamConfiguration().Configure(modelBuilder.Entity<AdressTeam>());
-        new ReportConfiguration().Configure(modelBuilder.Entity<Report>());
-        new TeamConfiguration().Configure(modelBuilder.Entity<Team>());
-
+        }
     }
 }
