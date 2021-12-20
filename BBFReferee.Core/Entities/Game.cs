@@ -18,12 +18,9 @@ namespace BBFReff.Entities
         public ICollection<Referee> Referees { get; set; }
         public int RefereeId { get; set; }
         public string Describtion { get; set; }
-        public ICollection<GameSeason> GameSeasons { get; set; }
-        public int GameSeasonId { get; set; } 
+        public int SeasonId { get; set; } 
+        public Season Season { get; set; }
+        public int GameNumberInSeasonId { get; set; }
         
-
-
-
-
     }
 }

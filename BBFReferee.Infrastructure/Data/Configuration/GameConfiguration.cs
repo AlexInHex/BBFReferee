@@ -40,7 +40,11 @@ namespace BBFReferee.Infrastructure.Data.Configuration
                 .HasMaxLength(300);
 
             builder
-                .Property(t => t.GameSeasonId)
+                .Property(t => t.SeasonId)
+                .IsRequired();
+
+            builder
+                .Property(x => x.GameNumberInSeasonId)
                 .IsRequired();
 
         }
