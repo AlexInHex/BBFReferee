@@ -12,7 +12,8 @@ namespace BBFReff.Entities
         public string Name { get; set; }
         public DateTime StartSeason { get; set; }
         public DateTime EndSeason { get; set; }
-        
+        public  ICollection<Game> Games { get; set; }
+
 
     }
 }

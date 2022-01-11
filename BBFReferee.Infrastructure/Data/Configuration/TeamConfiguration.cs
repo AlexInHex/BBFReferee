@@ -22,13 +22,13 @@ namespace BBFReferee.Infrastructure.Data.Configuration
                 .HasMaxLength(150)
                 .IsRequired();
 
-            builder
-                .Property(t => t.HomeGameId)
-                .IsRequired();
-
-            builder
-                .Property(t => t.AwayGameId)
-                .IsRequired();
+          //  builder
+          //      .Property(t => t.HomeGameId)
+          //      .IsRequired();
+          //
+          //  builder
+          //      .Property(t => t.AwayGameId)
+          //      .IsRequired();
 
               
 

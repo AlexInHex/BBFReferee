@@ -14,6 +14,7 @@ namespace BBFReff.Entities
         public string Name { get; set; }
         public int HomeGameId { get; set; }
         public int AwayGameId { get; set; }
+        public Game Game { get; set; }
 
 
 

@@ -23,13 +23,14 @@ namespace BBFReferee.Infrastructure.Data.Configuration
                 .Property(t => t.DateOfGame)
                 .IsRequired();
 
-            builder
-                .Property(t => t.HomeTeamId)
-                .IsRequired();
-
-            builder
-                .Property(t => t.AwayTeamId)
-                .IsRequired();
+         //  builder
+         //      .Property(t => t.HomeTeamId)
+         //      .IsRequired();
+         //
+         //  builder
+         //      .HasOne(t => t.Season)
+          //     .WithMany(x => x.Games)
+          //     .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .Property(t => t.RefereeId)
@@ -40,12 +41,17 @@ namespace BBFReferee.Infrastructure.Data.Configuration
                 .HasMaxLength(300);
 
             builder
-                .Property(t => t.SeasonId)
-                .IsRequired();
+               .HasOne(t => t.Season)
+               .WithMany(x => x.Games)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            //  builder
+            //      .Property(t => t.SeasonId)
+            //      .IsRequired();
 
             builder
-                .Property(x => x.GameNumberInSeasonId)
-                .IsRequired();
+               .Property(x => x.GameNumberInSeasonId)
+               .IsRequired();
 
           //  builder
           //      .HasOne(t => t.HomeTeamId).WithMany()
