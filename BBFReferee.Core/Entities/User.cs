@@ -19,10 +19,10 @@ namespace BBFReff.Entities
         public DateTime DayOfBirth { get; set; }
         public string Email { get; set; }
         public int SityId { get; set; }
-        public Sity Sity { get; set; }
+      
         public DateTime DateRegistration { get; set; }
-        public Gender GenderId { get; set; }
-        public ICollection<UserRole> UserRoles { get; set; }
+        
+        
 
 
 

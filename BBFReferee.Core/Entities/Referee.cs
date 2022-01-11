@@ -11,12 +11,12 @@ namespace BBFReff.Entities
     {
         public RoleOnGame RoleInGame { get; set; }
         public int GameId { get; set; }
-        public Game Game { get; set; }
+        
         public int UserId { get; set; }
-        public User User { get; set; }
+        
         public int Mark { get; set; }
         public int ReportId { get; set; }
-        public Report Report { get; set; }
+        
         public int Id { get; set; }
 
 

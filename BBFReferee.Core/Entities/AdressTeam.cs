@@ -10,9 +10,9 @@ namespace BBFReff.Entities
     {
         public int Id { get; set; }
         public int SityId { get; set; }
-        public Sity Sity { get; set; }
+        
         public int TeamId { get; set; }
-        public Team Team { get; set; }
+       
         public string Adress { get; set; }
 
     }

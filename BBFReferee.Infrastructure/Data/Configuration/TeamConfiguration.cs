@@ -15,19 +15,24 @@ namespace BBFReferee.Infrastructure.Data.Configuration
         public void Configure(EntityTypeBuilder<Team> builder)
         {
             builder
-                .HasMany(t => t.HomeGames)
-                .WithOne(g => g.HomeTeam)
-                .HasForeignKey(g => g.HomeTeamId);
-
-            builder
-                .HasMany(t => t.AwayGames)
-                .WithOne(g => g.AwayTeam)
-                .HasForeignKey(g => g.AwayTeamId);
+                .HasKey(t => t.Id);
 
             builder
                 .Property(t => t.Name)
                 .HasMaxLength(150)
                 .IsRequired();
+
+            builder
+                .Property(t => t.HomeGameId)
+                .IsRequired();
+
+            builder
+                .Property(t => t.AwayGameId)
+                .IsRequired();
+
+              
+
+           
         }
     }
 }

@@ -59,9 +59,9 @@ namespace BBFReferee.Infrastructure.Data.Configuration
                 .Property(t => t.DateRegistration)
                 .IsRequired();
 
-            builder
-                .Property(t => t.GenderId)
-                .IsRequired();
+           //builder
+           //    .Property(t => t.GenderId)
+           //    .IsRequired();
         }
     }
 }

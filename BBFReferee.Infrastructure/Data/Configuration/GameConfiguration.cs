@@ -47,6 +47,14 @@ namespace BBFReferee.Infrastructure.Data.Configuration
                 .Property(x => x.GameNumberInSeasonId)
                 .IsRequired();
 
+          //  builder
+          //      .HasOne(t => t.HomeTeamId).WithMany()
+          //      .OnDelete(DeleteBehavior.Cascade);
+          //
+          //  builder
+          //      .HasOne(t => t.AwayTeamId).WithMany()
+          //      .OnDelete(DeleteBehavior.Cascade);
+          //
         }
     }
 }

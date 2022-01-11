@@ -12,14 +12,10 @@ namespace BBFReff.Entities
         public int Sity { get; set; }
         public DateTime DateOfGame { get; set; }
         public int HomeTeamId { get; set; }
-        public Team HomeTeam { get; set; }
         public int AwayTeamId { get; set; }
-        public Team AwayTeam { get; set; }
-        public ICollection<Referee> Referees { get; set; }
         public int RefereeId { get; set; }
         public string Describtion { get; set; }
-        public int SeasonId { get; set; } 
-        public Season Season { get; set; }
+        public int SeasonId { get; set; }        
         public int GameNumberInSeasonId { get; set; }
         
     }

@@ -10,8 +10,7 @@ namespace BBFReff.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<User> Users { get; set; }
-        public ICollection<AdressTeam> Adresses { get; set; }
+       
 
     }
 }

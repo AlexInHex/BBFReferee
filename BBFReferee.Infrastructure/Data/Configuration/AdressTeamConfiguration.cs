@@ -28,8 +28,12 @@ namespace BBFReferee.Infrastructure.Data.Configuration
             builder
                 .Property(x => x.TeamId)
                 .IsRequired();
-        }
 
-        
+           // builder
+           //     .HasOne(x => x.TeamId)
+           //     .WithMany(x => x.Adresses)
+           //     .OnDelete(DeleteBehavior.SetNull);
+           //
+        }
     }
 }

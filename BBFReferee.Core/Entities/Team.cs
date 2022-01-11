@@ -12,9 +12,10 @@ namespace BBFReff.Entities
         public int Id { get; set; }
         public Gender GenderId { get; set; }
         public string Name { get; set; }
-        public ICollection<AdressTeam> Adresses { get; set; }
-        public ICollection<Game> HomeGames { get; set; }
-        public ICollection<Game> AwayGames { get; set; }
+        public int HomeGameId { get; set; }
+        public int AwayGameId { get; set; }
+
+
 
 
     }
