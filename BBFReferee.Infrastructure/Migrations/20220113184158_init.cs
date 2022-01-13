@@ -29,30 +29,12 @@ namespace BBFReferee.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleInGame = table.Column<int>(type: "int", nullable: false),
-                    GameId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    Mark = table.Column<int>(type: "int", nullable: false),
-                    ReportId = table.Column<int>(type: "int", nullable: false)
+                    Mark = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RefereeTeams", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Reports",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Describtion = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    DateCreation = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    GameId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reports", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -127,24 +109,24 @@ namespace BBFReferee.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Reports",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Login = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "nchar(50)", fixedLength: true, maxLength: 50, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Surname = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Patronymic = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
-                    DayOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    SityId = table.Column<int>(type: "int", nullable: false),
-                    DateRegistration = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Describtion = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
+                    DateCreation = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RefereeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Reports", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reports_RefereeTeams_RefereeId",
+                        column: x => x.RefereeId,
+                        principalTable: "RefereeTeams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -164,9 +146,42 @@ namespace BBFReferee.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Games", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Games_RefereeTeams_RefereeId",
+                        column: x => x.RefereeId,
+                        principalTable: "RefereeTeams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Games_Seasons_SeasonId",
                         column: x => x.SeasonId,
                         principalTable: "Seasons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Login = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "nchar(50)", fixedLength: true, maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Surname = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Patronymic = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
+                    DayOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    SityId = table.Column<int>(type: "int", nullable: true),
+                    DateRegistration = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Sities_SityId",
+                        column: x => x.SityId,
+                        principalTable: "Sities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -196,6 +211,11 @@ namespace BBFReferee.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Games_RefereeId",
+                table: "Games",
+                column: "RefereeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Games_SeasonId",
                 table: "Games",
                 column: "SeasonId");
@@ -204,6 +224,16 @@ namespace BBFReferee.Infrastructure.Migrations
                 name: "IX_GameTeam_GameId",
                 table: "GameTeam",
                 column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reports_RefereeId",
+                table: "Reports",
+                column: "RefereeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_SityId",
+                table: "Users",
+                column: "SityId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -215,16 +245,10 @@ namespace BBFReferee.Infrastructure.Migrations
                 name: "GameTeam");
 
             migrationBuilder.DropTable(
-                name: "RefereeTeams");
-
-            migrationBuilder.DropTable(
                 name: "Reports");
 
             migrationBuilder.DropTable(
                 name: "Roles");
-
-            migrationBuilder.DropTable(
-                name: "Sities");
 
             migrationBuilder.DropTable(
                 name: "UserRoles");
@@ -237,6 +261,12 @@ namespace BBFReferee.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Teams");
+
+            migrationBuilder.DropTable(
+                name: "Sities");
+
+            migrationBuilder.DropTable(
+                name: "RefereeTeams");
 
             migrationBuilder.DropTable(
                 name: "Seasons");

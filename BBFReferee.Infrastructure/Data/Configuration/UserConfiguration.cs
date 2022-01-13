@@ -47,16 +47,13 @@ namespace BBFReferee.Infrastructure.Data.Configuration
                 .IsRequired();
 
             builder
-                .Property(t => t.SityId)
-                .IsRequired();
+                .HasOne(x=> x.Sity)
+                .WithMany(y=> y.Users)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .Property(t => t.DateRegistration)
                 .IsRequired();
-
-           //builder
-           //    .Property(t => t.GenderId)
-           //    .IsRequired();
         }
     }
 }

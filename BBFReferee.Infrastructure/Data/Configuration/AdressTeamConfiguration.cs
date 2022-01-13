@@ -24,7 +24,6 @@ namespace BBFReferee.Infrastructure.Data.Configuration
                 .Property(x => x.TeamId)
                 .IsRequired();
 
-          
         }
     }
 }

@@ -10,12 +10,12 @@ namespace BBFReferee.Core.Entities
     public class Referee
     {
         public RoleOnGame RoleInGame { get; set; }
-        public int GameId { get; set; }
+        public ICollection<Game> GameId { get; set; }
         
         public int UserId { get; set; }
         
         public int Mark { get; set; }
-        public ICollection<Report> Reports { get; set; }
+        public ICollection<Report> Report { get; set; }
         
         public int Id { get; set; }
 

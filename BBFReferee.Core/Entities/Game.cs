@@ -14,6 +14,8 @@ namespace BBFReferee.Core.Entities
         public int SeasonId { get; set; }
         public Season Season { get; set; }  
         public int GameNumberInSeasonId { get; set; }
+        public Referee Referee { get; set; }
+
         
     }
 }

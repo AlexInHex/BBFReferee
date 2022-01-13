@@ -70,6 +70,8 @@ namespace BBFReferee.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RefereeId");
+
                     b.HasIndex("SeasonId");
 
                     b.ToTable("Games");
@@ -96,9 +98,6 @@ namespace BBFReferee.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Mark")
                         .HasColumnType("int");
@@ -256,7 +255,7 @@ namespace BBFReferee.Infrastructure.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
-                    b.Property<int>("SityId")
+                    b.Property<int?>("SityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Surname")
@@ -265,6 +264,8 @@ namespace BBFReferee.Infrastructure.Migrations
                         .HasColumnType("nvarchar(40)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SityId");
 
                     b.ToTable("Users");
                 });
@@ -292,11 +293,19 @@ namespace BBFReferee.Infrastructure.Migrations
 
             modelBuilder.Entity("BBFReferee.Core.Entities.Game", b =>
                 {
+                    b.HasOne("BBFReferee.Core.Entities.Referee", "Referee")
+                        .WithMany("GameId")
+                        .HasForeignKey("RefereeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BBFReferee.Core.Entities.Season", "Season")
                         .WithMany("Games")
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Referee");
 
                     b.Navigation("Season");
                 });
@@ -323,10 +332,20 @@ namespace BBFReferee.Infrastructure.Migrations
             modelBuilder.Entity("BBFReferee.Core.Entities.Report", b =>
                 {
                     b.HasOne("BBFReferee.Core.Entities.Referee", "Referee")
-                        .WithMany("Reports")
+                        .WithMany("Report")
                         .HasForeignKey("RefereeId");
 
                     b.Navigation("Referee");
+                });
+
+            modelBuilder.Entity("BBFReferee.Core.Entities.User", b =>
+                {
+                    b.HasOne("BBFReferee.Core.Entities.Sity", "Sity")
+                        .WithMany("Users")
+                        .HasForeignKey("SityId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Sity");
                 });
 
             modelBuilder.Entity("BBFReferee.Core.Entities.Game", b =>
@@ -336,12 +355,19 @@ namespace BBFReferee.Infrastructure.Migrations
 
             modelBuilder.Entity("BBFReferee.Core.Entities.Referee", b =>
                 {
-                    b.Navigation("Reports");
+                    b.Navigation("GameId");
+
+                    b.Navigation("Report");
                 });
 
             modelBuilder.Entity("BBFReferee.Core.Entities.Season", b =>
                 {
                     b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("BBFReferee.Core.Entities.Sity", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("BBFReferee.Core.Entities.Team", b =>
