@@ -15,7 +15,7 @@ namespace BBFReferee.Core.Entities
         public int UserId { get; set; }
         
         public int Mark { get; set; }
-        public int ReportId { get; set; }
+        public ICollection<Report> Reports { get; set; }
         
         public int Id { get; set; }
 

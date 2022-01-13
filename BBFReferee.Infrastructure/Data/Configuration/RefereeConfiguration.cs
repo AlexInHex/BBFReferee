@@ -24,8 +24,9 @@ namespace BBFReferee.Infrastructure.Data.Configuration
                 .HasMaxLength(3);
 
             builder
-                .Property(x => x.ReportId)
-                .IsRequired();
+                .HasMany(x=> x.Reports)
+                .WithOne(y=> y.Referee)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -7,9 +7,6 @@ namespace BBFReferee.Core.Entities
         public int Id { get; set; }
         public string Describtion { get; set; }
         public DateTime DateCreation { get; set; }
-       
-        
-
-
+        public Referee Referee { get; set; }
     }
 }
