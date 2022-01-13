@@ -3,25 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BBFReferee.Infrastructure.Migrations
 {
-    public partial class init : Migration
+    public partial class newConnections : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Adresses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SityId = table.Column<int>(type: "int", nullable: false),
-                    TeamId = table.Column<int>(type: "int", nullable: false),
-                    Adress = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Adresses", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "RefereeTeams",
                 columns: table => new
@@ -64,19 +49,6 @@ namespace BBFReferee.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Seasons", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Sities",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -160,28 +132,21 @@ namespace BBFReferee.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Adresses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Login = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "nchar(50)", fixedLength: true, maxLength: 50, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Surname = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Patronymic = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
-                    DayOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    SityId = table.Column<int>(type: "int", nullable: true),
-                    DateRegistration = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Adds = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Adresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Sities_SityId",
-                        column: x => x.SityId,
-                        principalTable: "Sities",
+                        name: "FK_Adresses_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -210,6 +175,36 @@ namespace BBFReferee.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Login = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "nchar(50)", fixedLength: true, maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Surname = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Patronymic = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
+                    DayOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DateRegistration = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Adresses_Id",
+                        column: x => x.Id,
+                        principalTable: "Adresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Adresses_TeamId",
+                table: "Adresses",
+                column: "TeamId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Games_RefereeId",
                 table: "Games",
@@ -229,18 +224,10 @@ namespace BBFReferee.Infrastructure.Migrations
                 name: "IX_Reports_RefereeId",
                 table: "Reports",
                 column: "RefereeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_SityId",
-                table: "Users",
-                column: "SityId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Adresses");
-
             migrationBuilder.DropTable(
                 name: "GameTeam");
 
@@ -260,16 +247,16 @@ namespace BBFReferee.Infrastructure.Migrations
                 name: "Games");
 
             migrationBuilder.DropTable(
-                name: "Teams");
-
-            migrationBuilder.DropTable(
-                name: "Sities");
+                name: "Adresses");
 
             migrationBuilder.DropTable(
                 name: "RefereeTeams");
 
             migrationBuilder.DropTable(
                 name: "Seasons");
+
+            migrationBuilder.DropTable(
+                name: "Teams");
         }
     }
 }

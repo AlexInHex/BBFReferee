@@ -21,6 +21,11 @@ namespace BBFReferee.Infrastructure.Data.Configuration
                 .Property(x => x.GenderId)
                 .IsRequired();
 
+            builder
+                .HasMany(x => x.Adresses)
+                .WithOne(y => y.Team)
+                .OnDelete(DeleteBehavior.Restrict);
+
           //  builder
           //      .Property(t => t.HomeTeamId)
           //      .IsRequired();

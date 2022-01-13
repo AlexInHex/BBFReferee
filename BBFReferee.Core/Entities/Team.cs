@@ -9,6 +9,8 @@ namespace BBFReferee.Core.Entities
         public Gender GenderId { get; set; }
         public string Name { get; set; }
 
+        public ICollection<Adress> Adresses { get; set; }
+
         //public int HomeTeamId { get; set; }
         //public int AwayTeamId { get; set; }
 

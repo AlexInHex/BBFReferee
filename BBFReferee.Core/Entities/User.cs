@@ -13,9 +13,8 @@ namespace BBFReferee.Core.Entities
         public string Patronymic { get; set; }
         public DateTime DayOfBirth { get; set; }
         public string Email { get; set; }
-        public Sity Sity { get; set; }
         public DateTime DateRegistration { get; set; }
-        
+        public Adress Adress { get; set; }
         
 
 

@@ -47,9 +47,9 @@ namespace BBFReferee.Infrastructure.Data.Configuration
                 .IsRequired();
 
             builder
-                .HasOne(x=> x.Sity)
-                .WithMany(y=> y.Users)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(x=> x.Adress)
+                .WithOne(y=> y.User)
+                .HasForeignKey<User>(x => x.Id);
 
             builder
                 .Property(t => t.DateRegistration)
