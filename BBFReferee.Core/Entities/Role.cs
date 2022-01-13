@@ -1,11 +1,4 @@
-﻿using BBFReff.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BBFReferee.Core.Entities
+﻿namespace BBFReferee.Core.Entities
 {
     public class Role
     {

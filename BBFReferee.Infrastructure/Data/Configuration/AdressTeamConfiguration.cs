@@ -1,11 +1,6 @@
-﻿using BBFReff.Entities;
+﻿using BBFReferee.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BBFReferee.Infrastructure.Data.Configuration
 {
@@ -29,10 +24,10 @@ namespace BBFReferee.Infrastructure.Data.Configuration
                 .Property(x => x.TeamId)
                 .IsRequired();
 
-           // builder
-           //     .HasOne(x => x.TeamId)
-           //     .WithMany(x => x.Adresses)
-           //     .OnDelete(DeleteBehavior.SetNull);
+           //builder
+           //    .HasOne(x => x.TeamId)
+           //    .WithMany(y => y.Adresses)
+           //    .OnDelete(DeleteBehavior.SetNull);
            //
         }
     }

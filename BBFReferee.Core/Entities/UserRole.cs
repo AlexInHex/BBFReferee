@@ -1,11 +1,6 @@
-﻿using BBFReferee.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
-namespace BBFReff.Entities
+namespace BBFReferee.Core.Entities
 {
     public class UserRole
     {

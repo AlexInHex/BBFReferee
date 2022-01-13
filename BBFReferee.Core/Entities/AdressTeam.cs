@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BBFReff.Entities
+﻿namespace BBFReferee.Core.Entities
 {
     public class AdressTeam
     {

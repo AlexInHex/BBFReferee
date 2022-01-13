@@ -1,10 +1,5 @@
-﻿using BBFReff.Entities;
+﻿using BBFReferee.Core.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BBFReferee.Infrastructure.Data.Configuration
 {
@@ -15,13 +10,7 @@ namespace BBFReferee.Infrastructure.Data.Configuration
             builder
                 .HasKey(x => x.Id);
 
-            builder
-                .Property(x => x.GameId)
-                .IsRequired();
-
-            builder
-                .Property(x => x.UserId)
-                .IsRequired();
+           
 
             builder
                 .Property(x => x.DateCreation)

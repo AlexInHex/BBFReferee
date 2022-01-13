@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using BBFReff.Entities;
-using BBFReferee.Core.Entities;
+﻿using BBFReferee.Core.Entities;
 using BBFReferee.Infrastructure.Data.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace BBFReferee.Infrastructure.Data
 {
@@ -38,7 +32,7 @@ namespace BBFReferee.Infrastructure.Data
             new ReportConfiguration().Configure(modelBuilder.Entity<Report>());
             new TeamConfiguration().Configure(modelBuilder.Entity<Team>());
             new UserRoleConfiguration().Configure(modelBuilder.Entity<UserRole>());
-
+            new GameTeamConfiguration().Configure(modelBuilder.Entity<GameTeam>());
         }
     }
 }
