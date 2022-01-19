@@ -31,10 +31,15 @@ namespace BBFReferee.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int?>("SityId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("TeamId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SityId");
 
                     b.HasIndex("TeamId");
 
@@ -179,6 +184,23 @@ namespace BBFReferee.Infrastructure.Migrations
                     b.ToTable("Seasons");
                 });
 
+            modelBuilder.Entity("BBFReferee.Core.Entities.Sity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sities");
+                });
+
             modelBuilder.Entity("BBFReferee.Core.Entities.Team", b =>
                 {
                     b.Property<int>("Id")
@@ -235,6 +257,9 @@ namespace BBFReferee.Infrastructure.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
+                    b.Property<int?>("SityId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasMaxLength(40)
@@ -242,36 +267,44 @@ namespace BBFReferee.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("SityId");
+
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("BBFReferee.Core.Entities.UserRole", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("MemberOn")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<DateTime>("MemberOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("BBFReferee.Core.Entities.Adress", b =>
                 {
+                    b.HasOne("BBFReferee.Core.Entities.Sity", "Sity")
+                        .WithMany("Adresses")
+                        .HasForeignKey("SityId");
+
                     b.HasOne("BBFReferee.Core.Entities.Team", "Team")
                         .WithMany("Adresses")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Sity");
 
                     b.Navigation("Team");
                 });
@@ -331,7 +364,32 @@ namespace BBFReferee.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BBFReferee.Core.Entities.Sity", "Sity")
+                        .WithMany("Users")
+                        .HasForeignKey("SityId");
+
                     b.Navigation("Adress");
+
+                    b.Navigation("Sity");
+                });
+
+            modelBuilder.Entity("BBFReferee.Core.Entities.UserRole", b =>
+                {
+                    b.HasOne("BBFReferee.Core.Entities.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBFReferee.Core.Entities.User", "User")
+                        .WithMany("Roles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BBFReferee.Core.Entities.Adress", b =>
@@ -351,9 +409,21 @@ namespace BBFReferee.Infrastructure.Migrations
                     b.Navigation("Report");
                 });
 
+            modelBuilder.Entity("BBFReferee.Core.Entities.Role", b =>
+                {
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("BBFReferee.Core.Entities.Season", b =>
                 {
                     b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("BBFReferee.Core.Entities.Sity", b =>
+                {
+                    b.Navigation("Adresses");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("BBFReferee.Core.Entities.Team", b =>
@@ -361,6 +431,11 @@ namespace BBFReferee.Infrastructure.Migrations
                     b.Navigation("Adresses");
 
                     b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("BBFReferee.Core.Entities.User", b =>
+                {
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }

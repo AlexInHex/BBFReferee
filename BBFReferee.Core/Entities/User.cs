@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 
 namespace BBFReferee.Core.Entities
 {
@@ -15,9 +15,8 @@ namespace BBFReferee.Core.Entities
         public string Email { get; set; }
         public DateTime DateRegistration { get; set; }
         public Adress Adress { get; set; }
-        
-
-
+        public Sity Sity { get; set; }
+        public ICollection<UserRole> Roles { get; set; }
 
 
     }

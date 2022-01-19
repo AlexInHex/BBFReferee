@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BBFReferee.Infrastructure.Migrations
 {
-    public partial class newConnections : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,6 +52,19 @@ namespace BBFReferee.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sities", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Teams",
                 columns: table => new
                 {
@@ -63,21 +76,6 @@ namespace BBFReferee.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Teams", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserRoles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
-                    MemberOn = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserRoles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -138,11 +136,18 @@ namespace BBFReferee.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Adds = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    TeamId = table.Column<int>(type: "int", nullable: true)
+                    TeamId = table.Column<int>(type: "int", nullable: true),
+                    SityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Adresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Adresses_Sities_SityId",
+                        column: x => x.SityId,
+                        principalTable: "Sities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Adresses_Teams_TeamId",
                         column: x => x.TeamId,
@@ -187,7 +192,8 @@ namespace BBFReferee.Infrastructure.Migrations
                     Patronymic = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
                     DayOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    DateRegistration = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateRegistration = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -198,7 +204,44 @@ namespace BBFReferee.Infrastructure.Migrations
                         principalTable: "Adresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Users_Sities_SityId",
+                        column: x => x.SityId,
+                        principalTable: "Sities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "UserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    MemberOn = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_UserRoles_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserRoles_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Adresses_SityId",
+                table: "Adresses",
+                column: "SityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Adresses_TeamId",
@@ -224,6 +267,16 @@ namespace BBFReferee.Infrastructure.Migrations
                 name: "IX_Reports_RefereeId",
                 table: "Reports",
                 column: "RefereeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRoles_RoleId",
+                table: "UserRoles",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_SityId",
+                table: "Users",
+                column: "SityId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -235,25 +288,28 @@ namespace BBFReferee.Infrastructure.Migrations
                 name: "Reports");
 
             migrationBuilder.DropTable(
-                name: "Roles");
-
-            migrationBuilder.DropTable(
                 name: "UserRoles");
-
-            migrationBuilder.DropTable(
-                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Games");
 
             migrationBuilder.DropTable(
-                name: "Adresses");
+                name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "RefereeTeams");
 
             migrationBuilder.DropTable(
                 name: "Seasons");
+
+            migrationBuilder.DropTable(
+                name: "Adresses");
+
+            migrationBuilder.DropTable(
+                name: "Sities");
 
             migrationBuilder.DropTable(
                 name: "Teams");

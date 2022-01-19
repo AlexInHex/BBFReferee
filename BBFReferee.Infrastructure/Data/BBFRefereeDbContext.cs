@@ -15,6 +15,7 @@ namespace BBFReferee.Infrastructure.Data
         public DbSet<Report> Reports { get; set; }
         public DbSet<Referee> RefereeTeams { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Sity> Sities { get; set; }
 
 
         public BBFRefereeDbContext(DbContextOptions<BBFRefereeDbContext> options) : base(options)
@@ -31,6 +32,7 @@ namespace BBFReferee.Infrastructure.Data
             new TeamConfiguration().Configure(modelBuilder.Entity<Team>());
             new UserRoleConfiguration().Configure(modelBuilder.Entity<UserRole>());
             new GameTeamConfiguration().Configure(modelBuilder.Entity<GameTeam>());
+            new SityConfiguration().Configure(modelBuilder.Entity<Sity>());
         }
     }
 }

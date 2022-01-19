@@ -9,15 +9,7 @@ namespace BBFReferee.Infrastructure.Data.Configuration
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
             builder
-                .HasKey(x => x.Id);
-
-            builder
-                .Property(x => x.RoleId)
-                .IsRequired();
-
-            builder
-                .Property(x => x.UserId)
-                .IsRequired();
+                 .HasKey(x => new { x.UserId, x.RoleId });
 
             builder
                 .Property(x => x.MemberOn)
