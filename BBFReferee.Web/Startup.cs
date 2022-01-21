@@ -12,6 +12,9 @@ using BBFReferee.Infrastructure.Data;
 using BBFReferee.Core.Interfeices;
 using BBFReferee.Infrastructure.Data.Repisitoies;
 using Microsoft.EntityFrameworkCore;
+using BBFReferee.Web.Controllers;
+using BBFReferee.Web.Interfaces;
+using BBFReferee.Web.Services;
 
 namespace BBFReferee.Web
 {
@@ -35,6 +38,8 @@ namespace BBFReferee.Web
 
             //MVC Services
             services.AddControllersWithViews();
+
+            services.AddScoped<IUserViewModelService, UserViewModelService >();
         }
 
 

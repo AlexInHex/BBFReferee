@@ -12,6 +12,8 @@ namespace BBFReferee.Web.Models
         [Display(Name = "my name")]
         public string Name { get; set; }
 
+
         public IList<string> Roles { get; set; }
+
     }
 }
