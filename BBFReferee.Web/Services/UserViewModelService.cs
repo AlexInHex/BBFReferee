@@ -9,6 +9,13 @@ namespace BBFReferee.Web.Services
 {
     public class UserViewModelService : IUserViewModelService
     {
+        private readonly IUserService userService;
+        private readonly IRepository<User> userRepository;
+        public UserViewModelService(IUserService userService, IRepository<User> userRepositiry)
+        {
+            this.userService = userService;
+            this.userRepository = userRepositiry;
+        }
         
         public int Add(UserViewModel userViewModel)
         {
@@ -27,7 +34,17 @@ namespace BBFReferee.Web.Services
 
         public UserViewModel GetById(int id)
         {
-            throw new System.NotImplementedException();
+            var user = userService.GetOne(id);
+            return user != null ? ConvertToViewModel(user) : null;
+        }
+
+        private UserViewModel ConvertToViewModel(User user)
+        {
+            return new UserViewModel
+            {
+                Id = user.Id,
+                Name = user.Name
+            };
         }
     }
 }
