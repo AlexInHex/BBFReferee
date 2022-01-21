@@ -32,5 +32,9 @@ namespace BBFReferee.Core.Services
         {
             throw new NotImplementedException();
         }
+        public bool Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

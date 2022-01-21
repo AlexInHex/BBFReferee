@@ -12,5 +12,6 @@ namespace BBFReferee.Core.Interfeices
         User GetOne(int id);
         int Add(User user);
         bool Update(User user);
+        bool Delete(int id);
     }
 }
