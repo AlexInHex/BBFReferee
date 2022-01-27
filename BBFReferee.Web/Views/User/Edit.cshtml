@@ -1,0 +1,44 @@
+﻿@model UserViewModel
+
+@{
+    ViewData["Title"] = "User";
+}
+
+<form metod="post" action="/User" method="post">
+    <div class="form-group">
+        <label for="Name">Имя</label>
+        <input class-"form-control"="" type="text" id="Name" name="Name" value="">
+        <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label for="Surname">Фамилия</label>
+        <input class-"form-control"="" type="text" id="Surname" name="Surname" value="">
+        <span class="field-validation-valid" data-valmsg-for="Surname" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label for="Patronymic">Отчество</label>
+        <input class-"form-control"="" type="text" id="Patronymic" name="Patronymic" value="">
+        <span class="field-validation-valid" data-valmsg-for="Patronymic" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label for="Patronymic">Почта</label>
+        <input class-"form-control"="" type="text" id="Email" name="Email" value="">
+        <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label for="Patronymic">Логин</label>
+        <input class-"form-control"="" type="text" id="Login" name="Login" value="">
+        <span class="field-validation-valid" data-valmsg-for="Login" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label for="Patronymic">Пароль</label>
+        <input class-"form-control"="" type="text" id="Password" name="Password" value="">
+        <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+    </div>
+    <div>
+        <td>
+            <button type="button" class="bg-dark">ADD</button>
+        </td>
+    </div>
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8DpfLgKKd3VBsrTQMfi8i-EHLslQ26w0I06i6AKGwcZvFymZa0R6njTiPvHPAIkpATBSuapTz1w5mzOKBIHPhysk3ogqWohh6gTarqflCKVRm0fKH2CrJma3uniWdGy94PB95Lhoets8i-BF67BQa3Y">
+</form>

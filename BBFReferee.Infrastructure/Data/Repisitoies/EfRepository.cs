@@ -1,73 +1,81 @@
 ﻿using BBFReferee.Core.Interfeices;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
-namespace BBFReferee.Infrastructure.Data.Repisitoies
+namespace BBFReferee.Infrastructure.Data.Repositories
 {
-    public class EfRepository<TEntity> : IRepository<TEntity>
-        where TEntity : class
+    public class EfRepository<T> : IRepository<T>
+        where T : class
     {
-        private readonly BBFRefereeDbContext DbContext;
-        public EfRepository(BBFRefereeDbContext dbContext)
-        {
-            DbContext = dbContext;
-        }
-        public TEntity Add(TEntity entity)
-        {
-            DbContext.Set<TEntity>().Add(entity);
-            DbContext.SaveChanges();
+        private readonly BBFRefereeDbContext context;
 
-            DbContext.Entry(entity).State = EntityState.Modified;
+        public EfRepository(BBFRefereeDbContext context)
+        {
+            this.context = context;
+        }
+
+        public T Add(T entity)
+        {
+            context.Set<T>().Add(entity);
+            context.SaveChanges();
+
+            context.Entry(entity).State = EntityState.Detached;
 
             return entity;
         }
 
-        public void Delete(TEntity entity)
+        public void Delete(T entity)
         {
-            DbContext.Set<TEntity>().Remove(entity);
-            DbContext.SaveChanges();
+            context.Entry(entity).State = EntityState.Deleted;
 
+            context.SaveChanges();
         }
 
-        public TEntity Get(int id)
+        public T Get(int id)
         {
+            var entity = context.Set<T>().Find(id);
 
-            var entity = DbContext.Set<TEntity>().Find(id);
-            DbContext.Entry(entity).State = EntityState.Detached;
+            if (entity != null)
+            {
+                context.Entry(entity).State = EntityState.Detached;
+            }
 
             return entity;
         }
 
-        public TEntity Get(ISpecification<TEntity> specification)
+        public T Get(ISpecification<T> specification)
         {
-            return specification
-                .Applay(DbContext.Set<TEntity>())
-                .AsNoTracking()
-                .FirstOrDefault();
+            return ApplySpecification(context.Set<T>(), specification).FirstOrDefault();
         }
 
-        public IList<TEntity> List()
+        public IList<T> List()
         {
-            return DbContext.Set<TEntity>().ToList();
+            return context.Set<T>().AsNoTracking().ToList();
         }
 
-        public IList<TEntity> List(ISpecification<TEntity> specification)
+        public IList<T> List(ISpecification<T> specification)
         {
-            return specification
-                .Applay(DbContext.Set<TEntity>())
-                .AsNoTracking()
-                .ToList();
+            return ApplySpecification(context.Set<T>(), specification).ToList();
         }
 
-        public void Update(TEntity entity)
+        public void Update(T entity)
         {
-            DbContext.Entry(entity).State = EntityState.Modified;
+            context.Entry(entity).State = EntityState.Modified;
 
-            DbContext.SaveChanges();
+            context.SaveChanges();
+        }
+
+        private IQueryable<T> ApplySpecification(IQueryable<T> source, ISpecification<T> specification)
+        {
+            var result = specification.Apply(source);
+
+            foreach (var include in specification.Includes)
+            {
+                result = result.Include(include);
+            }
+
+            return result.AsNoTracking();
         }
     }
 }

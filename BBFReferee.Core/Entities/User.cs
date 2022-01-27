@@ -14,7 +14,9 @@ namespace BBFReferee.Core.Entities
         public DateTime DayOfBirth { get; set; }
         public string Email { get; set; }
         public DateTime DateRegistration { get; set; }
+        public int AdressId { get; set; }
         public Adress Adress { get; set; }
+        public int SityId { get; set; }
         public Sity Sity { get; set; }
         public ICollection<UserRole> Roles { get; set; }
 

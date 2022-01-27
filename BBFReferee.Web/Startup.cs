@@ -10,11 +10,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using BBFReferee.Infrastructure.Data;
 using BBFReferee.Core.Interfeices;
-using BBFReferee.Infrastructure.Data.Repisitoies;
+using BBFReferee.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using BBFReferee.Web.Controllers;
 using BBFReferee.Web.Interfaces;
 using BBFReferee.Web.Services;
+using BBFReferee.Core.Services;
 
 namespace BBFReferee.Web
 {
@@ -39,7 +40,9 @@ namespace BBFReferee.Web
             //MVC Services
             services.AddControllersWithViews();
 
-            services.AddScoped<IUserViewModelService, UserViewModelService >();
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IUserViewModelService, UserViewModelService>();
         }
 
 

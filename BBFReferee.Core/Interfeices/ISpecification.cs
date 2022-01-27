@@ -9,6 +9,8 @@ namespace BBFReferee.Core.Interfeices
     public interface ISpecification<TEntity>
         where TEntity : class
     {
-        IQueryable<TEntity> Applay(IQueryable<TEntity> query);
+        IList<string> Includes { get; }
+
+        IQueryable<TEntity> Apply(IQueryable<TEntity> query);
     }
 }

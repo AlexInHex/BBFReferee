@@ -4,13 +4,13 @@ using BBFReferee.Web.Models;
 
 namespace BBFReferee.Web.Controllers
 {
-    public class UserController : Controller
+    public class SityController : Controller
     {
-        public readonly IUserViewModelService userViewModelService;
+        public readonly ISityViewModelService sityViewModelService;
 
-        public UserController(IUserViewModelService userViewModelService)
+        public SityController(ISityViewModelService sityViewModelService)
         {
-            this.userViewModelService = userViewModelService;
+            this.sityViewModelService = sityViewModelService;
         }
 
         [HttpGet]
@@ -40,40 +40,40 @@ namespace BBFReferee.Web.Controllers
         [HttpGet]
         public IActionResult List()
         {
-            var users = this.userViewModelService.GetAll();
+            var sities = this.sityViewModelService.GetAll();
 
-            return View(users);
+            return View(sities);
         }
 
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            var user = id.HasValue ? userViewModelService.GetById(id.Value) : new UserViewModel();
+            var sity = id.HasValue ? sityViewModelService.GetById(id.Value) : new SityViewModel();
 
-            return View(user);
+            return View(sity);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(UserViewModel user)
+        public IActionResult Edit(SityViewModel sity)
         {
             if (!ModelState.IsValid)
             {
-                return View(user);
+                return View(sity);
             }
 
-            var id = user.Id;
+            var id = sity.Id;
 
             if (id == 0)
             {
-                id = userViewModelService.Add(user);
+                id = sityViewModelService.Add(sity);
             }
             else
             {
-                userViewModelService.Edit(user);
+                sityViewModelService.Edit(sity);
             }
 
-            return RedirectToAction(nameof(User), new { id });
+            return RedirectToAction(nameof(Sity), new { id });
         }
     }
 }

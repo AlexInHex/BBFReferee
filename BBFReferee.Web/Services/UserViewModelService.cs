@@ -3,6 +3,7 @@ using BBFReferee.Core.Interfeices;
 using BBFReferee.Web.Interfaces;
 using BBFReferee.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace BBFReferee.Web.Services
@@ -16,20 +17,20 @@ namespace BBFReferee.Web.Services
             this.userService = userService;
             this.userRepository = userRepositiry;
         }
-        
+
         public int Add(UserViewModel userViewModel)
         {
-            throw new System.NotImplementedException();
+            return userService.Add(ConvertToEntity(userViewModel));
         }
 
         public void Edit(UserViewModel userViewModel)
         {
-            throw new System.NotImplementedException();
+            userService.Update(ConvertToEntity(userViewModel));
         }
 
         public IEnumerable<UserViewModel> GetAll()
         {
-            throw new System.NotImplementedException();
+            return (IEnumerable<UserViewModel>)userService.GetAll();
         }
 
         public UserViewModel GetById(int id)
@@ -43,7 +44,33 @@ namespace BBFReferee.Web.Services
             return new UserViewModel
             {
                 Id = user.Id,
-                Name = user.Name
+                Name = user.Name,
+                Surname = user.Surname,
+                Patronymic = user.Patronymic,
+                DayOfBirth = user.DayOfBirth,
+                Email = user.Email,
+                SityId = user.SityId,
+                AdressId = user.Adress,
+                Login = user.Login,
+                Password = user.Password,
+                Roles = user.Roles
+            };
+        }
+        private User ConvertToEntity(UserViewModel userViewModel)
+        {
+            return new User
+            {
+                Id = userViewModel.Id,
+                Name = userViewModel.Name,
+                Surname = userViewModel.Surname,
+                Patronymic = userViewModel.Patronymic,
+                DayOfBirth = userViewModel.DayOfBirth,
+                Email = userViewModel.Email,
+                SityId = userViewModel.SityId,
+                Adress = new Adress { Adds = userViewModel.AdressId },
+                Login = userViewModel.Login,
+                Password = userViewModel.Password,
+                Roles = userViewModel.Roles
             };
         }
     }

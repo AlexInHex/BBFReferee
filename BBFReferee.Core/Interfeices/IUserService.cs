@@ -10,8 +10,9 @@ namespace BBFReferee.Core.Interfeices
     public interface IUserService
     {
         User GetOne(int id);
+        IEnumerable<User> GetAll();
         int Add(User user);
-        bool Update(User user);
-        bool Delete(int id);
+        void Update(User user);
+        void Delete(int id);
     }
 }

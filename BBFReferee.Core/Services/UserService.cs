@@ -8,33 +8,39 @@ using System.Threading.Tasks;
 
 namespace BBFReferee.Core.Services
 {
-    internal class UserService : IUserService
+    public class UserService : IUserService
     {
-        private readonly IUserService userService;
         private readonly IRepository<User> userRepository;
 
-        public UserService(IUserService userService, IRepository<User> userRepository)
-        {
-            this.userService = userService;
+        public UserService(IRepository<User> userRepository)
+        {            
             this.userRepository = userRepository;
         }
         public int Add(User user)
         {
-            return userService.Add(user);
+            userRepository.Add(user);
+            return user.Id;
         }
 
         public User GetOne(int id)
         {
-            throw new NotImplementedException();
+            return userRepository.Get(id);
         }
 
-        public bool Update(User user)
+        public void Update(User user)
         {
-            throw new NotImplementedException();
+            userRepository.Update(user);
         }
-        public bool Delete(int id)
+
+        public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var user = new User {Id = id};
+            userRepository.Delete(user);
+        }
+
+        public IEnumerable<User> GetAll()
+        {
+            return userRepository.List();
         }
     }
 }
