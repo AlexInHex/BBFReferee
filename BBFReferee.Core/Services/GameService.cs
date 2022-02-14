@@ -10,29 +10,37 @@ namespace BBFReferee.Core.Services
 {
     public class GameService : IGameService
     {
+        private readonly IRepository<Game> gameRepository;
+
+        public GameService(IRepository<Game> gameRepository)
+        {
+            this.gameRepository = gameRepository;
+        }
         public int Add(Game game)
         {
-            throw new NotImplementedException();
+            gameRepository.Add(game);
+            return game.Id;
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var game = new Game { Id = id };
+            gameRepository.Delete(game);
         }
 
         public IEnumerable<Game> GetAll()
         {
-            throw new NotImplementedException();
+            return gameRepository.List();
         }
 
         public Game GetOne(int id)
         {
-            throw new NotImplementedException();
+            return gameRepository.Get(id);
         }
 
         public void Update(Game game)
         {
-            throw new NotImplementedException();
+            gameRepository.Update(game);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BBFReferee.Core.Entities;
 using BBFReferee.Core.Interfeices;
+using BBFReferee.Core.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace BBFReferee.Core.Services
         public User GetOne(int id)
         {
             return userRepository.Get(id);
+        }
+
+        public User GetOne(string login)
+        {
+            return userRepository.Get(new UserByLoginSpecification(login));
         }
 
         public void Update(User user)

@@ -9,16 +9,12 @@ namespace BBFReferee.Web.Models
 {
     public class SityViewModel
     {
-        public class Sity
-        {
             [HiddenInput]
             public int Id { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Город")]
             public string Name { get; set; }
-           
-
-        }
+          
     }
 }

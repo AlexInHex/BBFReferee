@@ -19,7 +19,7 @@ namespace BBFReferee.Core.Entities
         public int SityId { get; set; }
         public Sity Sity { get; set; }
         public ICollection<UserRole> Roles { get; set; }
-
+        public string Salt { get; set; }
 
     }
 }

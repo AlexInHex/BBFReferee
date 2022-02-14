@@ -7,12 +7,12 @@ using BBFReferee.Core.Entities;
 
 namespace BBFReferee.Core.Interfeices
 {
-    public interface ISityService
+    public interface ITeamService
     {
-        int Add(Sity sity);
-        void Update(Sity sity);
+        Team GetOne(int id);
+        IEnumerable<Team> GetAll();
+        int Add(Team team);
+        void Update(Team team);
         void Delete(int id);
-        IEnumerable<Sity> GetAll();
-        Sity GetOne(int id);
     }
 }

@@ -52,7 +52,14 @@ namespace BBFReferee.Web.Controllers
                 teamViewModelService.Edit(team);
             }
 
-            return RedirectToAction(nameof(User), new { id });
+            return RedirectToAction(nameof(GetOne), new { id });
+        }
+
+        [HttpGet]
+        public ActionResult GetOne(int id)
+        {
+            var team = teamViewModelService.GetById(id);
+            return View(team);
         }
     }
 }

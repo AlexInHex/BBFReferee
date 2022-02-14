@@ -14,8 +14,11 @@ namespace BBFReferee.Web.Models
         public int Id { get; set; }
 
         [Display(Name = "Пол")]
-        public Gender GenderId { get; set; }
-        //public IEnumerable<SelectListItem> Genders { get; set; }
+        public static Gender GenderId { get; set; }
+        public IEnumerable<SelectListItem> Genders { get; set; } = new List<SelectListItem>()
+        { 
+            new SelectListItem("-", ((int)Gender.None).ToString(), Gender.None == GenderId) 
+        };
 
         [DataType(DataType.Password)]
         [Display(Name = "Название команды")]
@@ -29,6 +32,7 @@ namespace BBFReferee.Web.Models
 
         [Display(Name = "Игры")]
         public int GameIds;
-        public ICollection<GameTeam> Games { get; set; }
+        public ICollection<SelectListItem> Games { get; set; }
+
     }
 }

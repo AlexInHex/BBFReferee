@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BBFReferee.Web.Interfaces;
 using BBFReferee.Web.Models;
+using BBFReferee.Core.Entities;
 
 namespace BBFReferee.Web.Controllers
 {
@@ -16,11 +17,6 @@ namespace BBFReferee.Web.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            //var user = this.userViewModelService.GetById(id);
-            //if (user == null)
-            //{
-            //    return Content("Нет юзера");
-            //}
             return View();
         }
 
@@ -29,11 +25,6 @@ namespace BBFReferee.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(UserViewModel userViewModel)
         {
-            //var user = this.userViewModelService.GetById(id);
-            //if (user == null)
-            //{
-            //    return Content("Нет юзера");
-            //}
             return View();
         }
 
@@ -48,7 +39,7 @@ namespace BBFReferee.Web.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            var sity = id.HasValue ? sityViewModelService.GetById(id.Value) : new SityViewModel();
+            var sity = id.HasValue ? sityViewModelService.GetOne(id.Value) : new SityViewModel();
 
             return View(sity);
         }

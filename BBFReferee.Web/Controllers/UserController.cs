@@ -73,7 +73,14 @@ namespace BBFReferee.Web.Controllers
                 userViewModelService.Edit(user);
             }
 
-            return RedirectToAction(nameof(User), new { id });
+            return RedirectToAction(nameof(GetOne), new { id });
+        }
+
+        [HttpGet]
+        public ActionResult GetOne(int id)
+        {
+            var user = userViewModelService.GetById(id);
+            return View(user);
         }
     }
 }

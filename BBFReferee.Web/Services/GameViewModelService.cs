@@ -36,8 +36,8 @@ namespace BBFReferee.Web.Services
 
         public GameViewModel GetById(int id)
         {
-            var user = gameService.GetOne(id);
-            return user != null ? ConvertToViewModel(user) : null;
+            var game = gameService.GetOne(id);
+            return game != null ? ConvertToViewModel(game) : null;
         }
 
         private GameViewModel ConvertToViewModel(Game game)

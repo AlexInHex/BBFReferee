@@ -10,29 +10,42 @@ namespace BBFReferee.Core.Services
 {
     public class SityService : ISityService
     {
-        public Sity Add(Sity sity)
+        private readonly IRepository<Sity> sityRepository;
+
+        public SityService(IRepository<Sity> sityRepository)
         {
-            throw new NotImplementedException();
+            this.sityRepository = sityRepository;
+        }
+        public int Add(Sity sity)
+        {
+            sityRepository.Add(sity);
+            return sity.Id;
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var sity = new Sity { Id = id };
+            sityRepository.Delete(sity);
         }
 
         public Sity Get(int id)
         {
-            throw new NotImplementedException();
+            return sityRepository.Get(id);
         }
 
-        public List<Sity> GetAll()
+        public IEnumerable<Sity> GetAll()
         {
-            throw new NotImplementedException();
+            return sityRepository.List();
         }
 
-        public Sity Update(Sity sity)
+        public Sity GetOne(int id)
         {
-            throw new NotImplementedException();
+            return sityRepository.Get(id);
+        }
+
+        public void Update(Sity sity)
+        {
+            sityRepository.Update(sity);
         }
     }
 }

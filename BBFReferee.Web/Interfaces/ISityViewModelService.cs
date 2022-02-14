@@ -8,6 +8,6 @@ namespace BBFReferee.Web.Interfaces
         int Add(SityViewModel sityViewModel);
         void Edit(SityViewModel sityViewModel);
         IEnumerable<SityViewModel> GetAll();
-        SityViewModel GetById(int id);
+        SityViewModel GetOne(int id);
     }
 }

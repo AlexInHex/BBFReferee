@@ -5,6 +5,7 @@ using BBFReferee.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BBFReferee.Web.Services
 {
@@ -39,6 +40,11 @@ namespace BBFReferee.Web.Services
             return user != null ? ConvertToViewModel(user) : null;
         }
 
+        public UserViewModel GetEmpty()
+        {
+            return ConvertToViewModel(new User());
+        }
+
         private UserViewModel ConvertToViewModel(User user)
         {
             return new UserViewModel
@@ -50,10 +56,10 @@ namespace BBFReferee.Web.Services
                 DayOfBirth = user.DayOfBirth,
                 Email = user.Email,
                 SityId = user.SityId,
-                AdressId = user.Adress,
+                AdressId = user.Adress.Id,
                 Login = user.Login,
                 Password = user.Password,
-                Roles = user.Roles
+                //Roles = user.Roles
             };
         }
         private User ConvertToEntity(UserViewModel userViewModel)
@@ -67,10 +73,13 @@ namespace BBFReferee.Web.Services
                 DayOfBirth = userViewModel.DayOfBirth,
                 Email = userViewModel.Email,
                 SityId = userViewModel.SityId,
-                Adress = new Adress { Adds = userViewModel.AdressId },
+                Adress = new Adress { Id = userViewModel.AdressId },
                 Login = userViewModel.Login,
                 Password = userViewModel.Password,
-                Roles = userViewModel.Roles
+                //Roles = userViewModel.Roles.
+                
+                
+                //new Role { Id = userViewModel.Roles }
             };
         }
     }

@@ -10,5 +10,6 @@ namespace BBFReferee.Web.Interfaces
         void Edit(UserViewModel userViewModel);
         IEnumerable<UserViewModel> GetAll();
         UserViewModel GetById(int id);
+        UserViewModel GetEmpty();
     }
 }

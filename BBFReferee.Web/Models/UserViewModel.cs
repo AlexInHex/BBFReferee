@@ -34,7 +34,7 @@ namespace BBFReferee.Web.Models
         public IEnumerable<SelectListItem> Sities { get; set; }
 
         [Display(Name = "Адрес")]
-        public string AdressId { get; set; }
+        public int AdressId { get; set; }
 
         [Display(Name = "Логин")]
         public string Login { get; set; }
